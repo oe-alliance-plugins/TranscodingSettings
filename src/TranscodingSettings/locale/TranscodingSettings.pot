@@ -1,0 +1,442 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: TranscodingSettings 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-26 11:42+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: DE OpenATV\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.8\n"
+
+msgid "AAC audio bitrate in kbit/s for the Dreamsource encoder. The generic port-8001 pipeline does not expose an audio-bitrate control and therefore keeps the hardware encoder's AAC bitrate."
+msgstr ""
+
+msgid "Advanced"
+msgstr ""
+
+msgid "Allow encoder 0 to choose bitrate or frame-rate behaviour automatically. This option is shown only when the driver exports an automode node."
+msgstr ""
+
+msgid "Allow encoder 1 to choose automatic bitrate or frame-rate behaviour."
+msgstr ""
+
+msgid "Allow frames to reference pictures from the previous GOP. This can improve compression but may reduce seeking and HLS segment independence."
+msgstr ""
+
+msgid "Aspect-ratio signalling for encoder 1."
+msgstr ""
+
+msgid "Aspect-ratio signalling passed to the encoder. Use the driver default when forced 4:3 or 16:9 signalling produces a distorted picture."
+msgstr ""
+
+msgid "Audio codec used by encoder 1 when supported by its driver."
+msgstr ""
+
+msgid "Audio codec used by the hardware encoder when the driver exposes this control. HLS/RTSP always uses AAC because enigma2-live555 currently supports AAC audio only."
+msgstr ""
+
+msgid "Auto (first free)"
+msgstr ""
+
+msgid "Auto is the default and lets every port-8001 request use the first free hardware encoder. Parallel streams can therefore use encoder 0 and encoder 1. Select a fixed encoder only for testing or when a client must always use one physical encoder."
+msgstr ""
+
+msgid "Automatic"
+msgstr ""
+
+msgid "Baseline"
+msgstr ""
+
+msgid "Basic"
+msgstr ""
+
+msgid "Best"
+msgstr ""
+
+msgid "Choose a ready-to-use quality profile. Values are adapted to the choices exported by encoder 0. Select Custom to edit the individual settings in Advanced view."
+msgstr ""
+
+msgid "Choose an independent quality profile for encoder 1. This does not copy settings from encoder 0."
+msgstr ""
+
+msgid "Codec level for encoder 1."
+msgstr ""
+
+msgid "Codec level limits resolution, frame rate and bitrate. A level that is too low for the selected values can prevent the stream from starting."
+msgstr ""
+
+msgid "Codec profile exported by the driver. Invalid profile, codec and level combinations can produce a black screen; keep the default when unsure."
+msgstr ""
+
+msgid "Codec profile for encoder 1. Keep the default when the supported combinations are unknown."
+msgstr ""
+
+msgid "Codec used by HLS and RTSP. Only H.264 and H.265 are accepted by the current live server; Dreamsource devices are limited to H.264."
+msgstr ""
+
+msgid "Configure hardware transcoding, HLS and RTSP"
+msgstr ""
+
+msgid "Custom"
+msgstr ""
+
+msgid "Enable the receiver's hardware encoder and allow OpenWebif to create reduced-bandwidth streams. Disable this option when the encoder must not be used."
+msgstr ""
+
+msgid "Enable transcoding"
+msgstr ""
+
+msgid "Encoder %d"
+msgstr ""
+
+msgid "Encoder 0 advanced settings"
+msgstr ""
+
+msgid "Encoder 0 aspect ratio"
+msgstr ""
+
+msgid "Encoder 0 audio codec"
+msgstr ""
+
+msgid "Encoder 0 automatic bitrate/frame rate"
+msgstr ""
+
+msgid "Encoder 0 B-frames"
+msgstr ""
+
+msgid "Encoder 0 frame rate"
+msgstr ""
+
+msgid "Encoder 0 level"
+msgstr ""
+
+msgid "Encoder 0 P-frames"
+msgstr ""
+
+msgid "Encoder 0 preset"
+msgstr ""
+
+msgid "Encoder 0 profile"
+msgstr ""
+
+msgid "Encoder 0 resolution"
+msgstr ""
+
+msgid "Encoder 0 scan mode"
+msgstr ""
+
+msgid "Encoder 0 video bitrate"
+msgstr ""
+
+msgid "Encoder 0 video codec"
+msgstr ""
+
+msgid "Encoder 1 advanced settings"
+msgstr ""
+
+msgid "Encoder 1 aspect ratio"
+msgstr ""
+
+msgid "Encoder 1 audio codec"
+msgstr ""
+
+msgid "Encoder 1 automatic bitrate/frame rate"
+msgstr ""
+
+msgid "Encoder 1 B-frames"
+msgstr ""
+
+msgid "Encoder 1 frame rate"
+msgstr ""
+
+msgid "Encoder 1 is configured independently. This allows a second encoder to retain a different quality profile."
+msgstr ""
+
+msgid "Encoder 1 level"
+msgstr ""
+
+msgid "Encoder 1 P-frames"
+msgstr ""
+
+msgid "Encoder 1 preset"
+msgstr ""
+
+msgid "Encoder 1 profile"
+msgstr ""
+
+msgid "Encoder 1 resolution"
+msgstr ""
+
+msgid "Encoder 1 scan mode"
+msgstr ""
+
+msgid "Encoder 1 video bitrate"
+msgstr ""
+
+msgid "Encoder 1 video codec"
+msgstr ""
+
+msgid "Encoder Presets"
+msgstr ""
+
+msgid "Encoder selection"
+msgstr ""
+
+msgid "Follow Live"
+msgstr ""
+
+msgid "Follow Live republishes the channel currently playing on the receiver. HDMI Input uses the receiver's HDMI input service. A service reference supplied by OpenWebif temporarily overrides this setting for that stream."
+msgstr ""
+
+msgid "For HiSilicon, WTE, Vu+ and GigaBlue port-8001 streaming, enigma2-live555 republishes the transport stream produced by Enigma2. Only bitrate, resolution, frame rate, video codec, aspect ratio and scan mode are passed to that pipeline."
+msgstr ""
+
+msgid "GOP duration in milliseconds. Zero lets the live server calculate it from the P-frame setting. Incorrect GOP settings can delay HLS segment creation or cause client startup failures."
+msgstr ""
+
+msgid "H.264 level used by the Dreamsource pipeline. Choose a level compatible with the selected resolution and frame rate."
+msgstr ""
+
+msgid "H.264 profile used by the Dreamsource pipeline. Main is the safest choice; High may not play on older clients."
+msgstr ""
+
+msgid "HDMI Input"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Higher"
+msgstr ""
+
+msgid "HLS and RTSP are not available on port 8002"
+msgstr ""
+
+msgid "HLS listening port"
+msgstr ""
+
+msgid "HLS password"
+msgstr ""
+
+msgid "HLS path"
+msgstr ""
+
+msgid "HLS server"
+msgstr ""
+
+msgid "HLS user"
+msgstr ""
+
+msgid "HLS/RTSP audio bitrate"
+msgstr ""
+
+msgid "HLS/RTSP source"
+msgstr ""
+
+msgid "HLS/RTSP streaming settings"
+msgstr ""
+
+msgid "HLS/RTSP unavailable: enigma2-live555 or the eStreamServer API is missing"
+msgstr ""
+
+msgid "HLS/RTSP video codec"
+msgstr ""
+
+msgid "Interlaced"
+msgstr ""
+
+msgid "Live B-frames"
+msgstr ""
+
+msgid "Live codec level"
+msgstr ""
+
+msgid "Live codec profile"
+msgstr ""
+
+msgid "Live encoder slices"
+msgstr ""
+
+msgid "Live GOP length"
+msgstr ""
+
+msgid "Live P-frames"
+msgstr ""
+
+msgid "Low"
+msgstr ""
+
+msgid "Main"
+msgstr ""
+
+msgid "Maximum"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "New GOP on scene change"
+msgstr ""
+
+msgid "No additional explanation is available for this setting."
+msgstr ""
+
+msgid "Number of B-frames in encoder 1's GOP."
+msgstr ""
+
+msgid "Number of B-frames in the encoder GOP. B-frames can improve compression but increase latency and are not supported by every profile."
+msgstr ""
+
+msgid "Number of B-frames used by the Dreamsource encoder pipeline. B-frames can increase latency and require a compatible profile."
+msgstr ""
+
+msgid "Number of H.264 slices. Multiple slices may improve error resilience but add overhead and are not useful for most home networks."
+msgstr ""
+
+msgid "Number of P-frames in encoder 1's GOP."
+msgstr ""
+
+msgid "Number of P-frames in the encoder GOP. Larger values improve compression but make recovery after packet loss slower."
+msgstr ""
+
+msgid "Number of P-frames used when GOP length is automatic. Larger values improve compression but increase recovery latency."
+msgstr ""
+
+msgid "Off"
+msgstr ""
+
+msgid "On"
+msgstr ""
+
+msgid "Open GOP"
+msgstr ""
+
+msgid "Optional HTTP user name. Leave empty to disable HLS authentication."
+msgstr ""
+
+msgid "Optional RTSP user name. Leave empty to disable RTSP authentication."
+msgstr ""
+
+msgid "Output dimensions for encoder 1."
+msgstr ""
+
+msgid "Output dimensions. High resolutions need a sufficiently high bitrate and may not be accepted with every codec or frame rate."
+msgstr ""
+
+msgid "Output frame rate for encoder 1."
+msgstr ""
+
+msgid "Output frame rate. Do not combine a high frame rate, high resolution and low bitrate unless the encoder is known to support it."
+msgstr ""
+
+msgid "Password used with the HLS user name."
+msgstr ""
+
+msgid "Password used with the RTSP user name."
+msgstr ""
+
+msgid "Playlist path without leading or trailing slash. For example, path 'stream' creates /stream.m3u8."
+msgstr ""
+
+msgid "Port 8001 uses the Enigma2 stream server and supports the optional HLS and RTSP service. Port 8002 uses the BCM transcoding proxy and never provides HLS or RTSP."
+msgstr ""
+
+msgid "Port 8002 is retained for BCM receivers and the classic transcoding proxy. Select port 8001 to use HLS or RTSP."
+msgstr ""
+
+msgid "Presets"
+msgstr ""
+
+msgid "Progressive"
+msgstr ""
+
+msgid "Progressive or interlaced output for encoder 1."
+msgstr ""
+
+msgid "Progressive output is normally appropriate for HLS/RTSP. Interlaced output can be incompatible with some clients and encoder combinations."
+msgstr ""
+
+msgid "Publish the selected transcoded service as an HLS playlist. Saving this option starts enigma2-live555 on demand. The daemon stops again when both HLS and RTSP are disabled, transcoding is disabled, or port 8002 is selected. HLS uses H.264 or H.265 video with AAC audio."
+msgstr ""
+
+msgid "Publish the selected transcoded service through RTSP. Saving this option starts enigma2-live555 on demand. The daemon stops again when both HLS and RTSP are disabled, transcoding is disabled, or port 8002 is selected. TCP transport is normally more reliable than UDP on wireless networks."
+msgstr ""
+
+msgid "Really close without saving the changed transcoding settings?"
+msgstr ""
+
+msgid "RTSP listening port"
+msgstr ""
+
+msgid "RTSP mount path without leading or trailing slash."
+msgstr ""
+
+msgid "RTSP password"
+msgstr ""
+
+msgid "RTSP path"
+msgstr ""
+
+msgid "RTSP server"
+msgstr ""
+
+msgid "RTSP user"
+msgstr ""
+
+msgid "Select a preset for Encoder %d. The values are adapted to this device."
+msgstr ""
+
+msgid "Select a ready-to-use preset for the highlighted encoder"
+msgstr ""
+
+msgid "Show or hide advanced transcoding settings"
+msgstr ""
+
+msgid "Start a new GOP on large scene changes. This may improve quality but produces less predictable segment boundaries."
+msgstr ""
+
+msgid "Target video bitrate for encoder 1."
+msgstr ""
+
+msgid "Target video bitrate. A lower value reduces network traffic but also reduces picture quality. Very low bitrates may cause block artifacts or encoder failure at high resolutions."
+msgstr ""
+
+msgid "TCP port used by the HLS HTTP server. It must differ from ports 8001, 8002 and the RTSP port."
+msgstr ""
+
+msgid "TCP/UDP port used by the RTSP server. It must differ from ports 8001, 8002 and the HLS port."
+msgstr ""
+
+msgid "The basic port-8001 transcoding stream remains usable. Install the enigma2-live555 binary and an Enigma2 build with the eStreamServer interface to enable HLS and RTSP."
+msgstr ""
+
+msgid "The following values configure encoder 0. Unsupported proc controls are not written, but the common values are also used to construct port-8001 streaming requests."
+msgstr ""
+
+msgid "The generic port-8001 pipeline does not provide separate GOP, profile, level or audio-bitrate controls"
+msgstr ""
+
+msgid "These settings control enigma2-live555 only. They do not change the codec choices available to a normal port-8001 or port-8002 client."
+msgstr ""
+
+msgid "Transcoding port"
+msgstr ""
+
+msgid "Transcoding Settings"
+msgstr ""
+
+msgid "Transcoding Settings Actions"
+msgstr ""
+
+msgid "Very Low"
+msgstr ""
+
+msgid "Video codec used by encoder 1 for normal transcoding."
+msgstr ""
+
+msgid "Video codec used for normal transcoding. HLS/RTSP has a separate codec selection restricted to H.264 and H.265. Some older BCM encoders support only H.264."
+msgstr ""

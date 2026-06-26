@@ -1,0 +1,97 @@
+<setupxml>
+	<setup key="transcodingsettings" title="Transcoding Settings">
+		<item text="Enable transcoding" description="Enable the receiver's hardware encoder and allow OpenWebif to create reduced-bandwidth streams. Disable this option when the encoder must not be used.">config.plugins.transcodingsettings.enabled</item>
+		<if conditional="config.plugins.transcodingsettings.enabled.value">
+			<item text="Transcoding port" description="Port 8001 uses the Enigma2 stream server and supports the optional HLS and RTSP service. Port 8002 uses the BCM transcoding proxy and never provides HLS or RTSP.">config.plugins.transcodingsettings.port</item>
+			<item text="Encoder selection" description="Auto is the default and lets every port-8001 request use the first free hardware encoder. Parallel streams can therefore use encoder 0 and encoder 1. Select a fixed encoder only for testing or when a client must always use one physical encoder." conditional="self.hasMultipleEncoders()">config.plugins.transcodingsettings.encoder</item>
+
+			<if conditional="self.hasEncoder(0)">
+				<item text="Encoder 0 preset" description="Choose a ready-to-use quality profile. Values are adapted to the choices exported by encoder 0. Select Custom to edit the individual settings in Advanced view.">config.plugins.transcodingsettings.encoder0.preset</item>
+			</if>
+			<if conditional="self.hasEncoder(1)">
+				<item text="Encoder 1 preset" description="Choose an independent quality profile for encoder 1. This does not copy settings from encoder 0.">config.plugins.transcodingsettings.encoder1.preset</item>
+			</if>
+
+			<if conditional="self.portIs8001()">
+				<if conditional="self.liveAvailable()">
+					<item text="HLS/RTSP source" conditional="self.hasHdmiInput()" description="Follow Live republishes the channel currently playing on the receiver. HDMI Input uses the receiver's HDMI input service. A service reference supplied by OpenWebif temporarily overrides this setting for that stream.">config.plugins.transcodingsettings.live.source</item>
+					<item text="HLS server" description="Publish the selected transcoded service as an HLS playlist. Saving this option starts enigma2-live555 on demand. The daemon stops again when both HLS and RTSP are disabled, transcoding is disabled, or port 8002 is selected. HLS uses H.264 or H.265 video with AAC audio.">config.plugins.transcodingsettings.hls.enabled</item>
+					<item text="RTSP server" description="Publish the selected transcoded service through RTSP. Saving this option starts enigma2-live555 on demand. The daemon stops again when both HLS and RTSP are disabled, transcoding is disabled, or port 8002 is selected. TCP transport is normally more reliable than UDP on wireless networks.">config.plugins.transcodingsettings.rtsp.enabled</item>
+				</if>
+				<if conditional="not self.liveAvailable()">
+					<item text="HLS/RTSP unavailable: enigma2-live555 or the eStreamServer API is missing" description="The basic port-8001 transcoding stream remains usable. Install the enigma2-live555 binary and an Enigma2 build with the eStreamServer interface to enable HLS and RTSP." />
+				</if>
+			</if>
+			<if conditional="self.portIs8002()">
+				<item text="HLS and RTSP are not available on port 8002" description="Port 8002 is retained for BCM receivers and the classic transcoding proxy. Select port 8001 to use HLS or RTSP." />
+			</if>
+
+			<if conditional="self.isAdvanced()">
+				<if conditional="self.hasEncoder(0)">
+					<item text="Encoder 0 advanced settings" description="The following values configure encoder 0. Unsupported proc controls are not written, but the common values are also used to construct port-8001 streaming requests." />
+					<item text="Encoder 0 video bitrate" conditional="self.showFeature(0, 'bitrate')" description="Target video bitrate. A lower value reduces network traffic but also reduces picture quality. Very low bitrates may cause block artifacts or encoder failure at high resolutions.">config.plugins.transcodingsettings.encoder0.bitrate</item>
+					<item text="Encoder 0 resolution" conditional="self.showFeature(0, 'resolution')" description="Output dimensions. High resolutions need a sufficiently high bitrate and may not be accepted with every codec or frame rate.">config.plugins.transcodingsettings.encoder0.resolution</item>
+					<item text="Encoder 0 frame rate" conditional="self.showFeature(0, 'framerate')" description="Output frame rate. Do not combine a high frame rate, high resolution and low bitrate unless the encoder is known to support it.">config.plugins.transcodingsettings.encoder0.framerate</item>
+					<item text="Encoder 0 video codec" conditional="self.showFeature(0, 'videocodec')" description="Video codec used for normal transcoding. HLS/RTSP has a separate codec selection restricted to H.264 and H.265. Some older BCM encoders support only H.264.">config.plugins.transcodingsettings.encoder0.videocodec</item>
+					<item text="Encoder 0 audio codec" conditional="self.showFeature(0, 'audiocodec')" description="Audio codec used by the hardware encoder when the driver exposes this control. HLS/RTSP always uses AAC because enigma2-live555 currently supports AAC audio only.">config.plugins.transcodingsettings.encoder0.audiocodec</item>
+					<item text="Encoder 0 aspect ratio" conditional="self.showFeature(0, 'aspectratio')" description="Aspect-ratio signalling passed to the encoder. Use the driver default when forced 4:3 or 16:9 signalling produces a distorted picture.">config.plugins.transcodingsettings.encoder0.aspectratio</item>
+					<item text="Encoder 0 scan mode" conditional="self.showFeature(0, 'interlaced')" description="Progressive output is normally appropriate for HLS/RTSP. Interlaced output can be incompatible with some clients and encoder combinations.">config.plugins.transcodingsettings.encoder0.interlaced</item>
+					<item text="Encoder 0 automatic bitrate/frame rate" description="Allow encoder 0 to choose bitrate or frame-rate behaviour automatically. This option is shown only when the driver exports an automode node." conditional="self.supportsFeature(0, 'automode')">config.plugins.transcodingsettings.encoder0.automode</item>
+					<item text="Encoder 0 B-frames" description="Number of B-frames in the encoder GOP. B-frames can improve compression but increase latency and are not supported by every profile." conditional="self.supportsFeature(0, 'gopframeb')">config.plugins.transcodingsettings.encoder0.gopframeb</item>
+					<item text="Encoder 0 P-frames" description="Number of P-frames in the encoder GOP. Larger values improve compression but make recovery after packet loss slower." conditional="self.supportsFeature(0, 'gopframep')">config.plugins.transcodingsettings.encoder0.gopframep</item>
+					<item text="Encoder 0 profile" description="Codec profile exported by the driver. Invalid profile, codec and level combinations can produce a black screen; keep the default when unsure." conditional="self.supportsFeature(0, 'profile')">config.plugins.transcodingsettings.encoder0.profile</item>
+					<item text="Encoder 0 level" description="Codec level limits resolution, frame rate and bitrate. A level that is too low for the selected values can prevent the stream from starting." conditional="self.supportsFeature(0, 'level')">config.plugins.transcodingsettings.encoder0.level</item>
+				</if>
+
+				<if conditional="self.hasEncoder(1)">
+					<item text="Encoder 1 advanced settings" description="Encoder 1 is configured independently. This allows a second encoder to retain a different quality profile." />
+					<item text="Encoder 1 video bitrate" conditional="self.showFeature(1, 'bitrate')" description="Target video bitrate for encoder 1.">config.plugins.transcodingsettings.encoder1.bitrate</item>
+					<item text="Encoder 1 resolution" conditional="self.showFeature(1, 'resolution')" description="Output dimensions for encoder 1.">config.plugins.transcodingsettings.encoder1.resolution</item>
+					<item text="Encoder 1 frame rate" conditional="self.showFeature(1, 'framerate')" description="Output frame rate for encoder 1.">config.plugins.transcodingsettings.encoder1.framerate</item>
+					<item text="Encoder 1 video codec" conditional="self.showFeature(1, 'videocodec')" description="Video codec used by encoder 1 for normal transcoding.">config.plugins.transcodingsettings.encoder1.videocodec</item>
+					<item text="Encoder 1 audio codec" conditional="self.showFeature(1, 'audiocodec')" description="Audio codec used by encoder 1 when supported by its driver.">config.plugins.transcodingsettings.encoder1.audiocodec</item>
+					<item text="Encoder 1 aspect ratio" conditional="self.showFeature(1, 'aspectratio')" description="Aspect-ratio signalling for encoder 1.">config.plugins.transcodingsettings.encoder1.aspectratio</item>
+					<item text="Encoder 1 scan mode" conditional="self.showFeature(1, 'interlaced')" description="Progressive or interlaced output for encoder 1.">config.plugins.transcodingsettings.encoder1.interlaced</item>
+					<item text="Encoder 1 automatic bitrate/frame rate" description="Allow encoder 1 to choose automatic bitrate or frame-rate behaviour." conditional="self.supportsFeature(1, 'automode')">config.plugins.transcodingsettings.encoder1.automode</item>
+					<item text="Encoder 1 B-frames" description="Number of B-frames in encoder 1's GOP." conditional="self.supportsFeature(1, 'gopframeb')">config.plugins.transcodingsettings.encoder1.gopframeb</item>
+					<item text="Encoder 1 P-frames" description="Number of P-frames in encoder 1's GOP." conditional="self.supportsFeature(1, 'gopframep')">config.plugins.transcodingsettings.encoder1.gopframep</item>
+					<item text="Encoder 1 profile" description="Codec profile for encoder 1. Keep the default when the supported combinations are unknown." conditional="self.supportsFeature(1, 'profile')">config.plugins.transcodingsettings.encoder1.profile</item>
+					<item text="Encoder 1 level" description="Codec level for encoder 1." conditional="self.supportsFeature(1, 'level')">config.plugins.transcodingsettings.encoder1.level</item>
+				</if>
+
+				<if conditional="self.portIs8001() and self.liveAvailable()">
+					<item text="HLS/RTSP streaming settings" description="These settings control enigma2-live555 only. They do not change the codec choices available to a normal port-8001 or port-8002 client." />
+					<item text="HLS/RTSP video codec" description="Codec used by HLS and RTSP. Only H.264 and H.265 are accepted by the current live server; Dreamsource devices are limited to H.264.">config.plugins.transcodingsettings.live.videoCodec</item>
+					<item text="HLS/RTSP audio bitrate" conditional="self.isDreamBackend()" description="AAC audio bitrate in kbit/s for the Dreamsource encoder. The generic port-8001 pipeline does not expose an audio-bitrate control and therefore keeps the hardware encoder's AAC bitrate.">config.plugins.transcodingsettings.live.audioBitrate</item>
+
+					<if conditional="self.hlsEnabled()">
+						<item text="HLS listening port" description="TCP port used by the HLS HTTP server. It must differ from ports 8001, 8002 and the RTSP port.">config.plugins.transcodingsettings.hls.port</item>
+						<item text="HLS path" description="Playlist path without leading or trailing slash. For example, path 'stream' creates /stream.m3u8.">config.plugins.transcodingsettings.hls.path</item>
+						<item text="HLS user" description="Optional HTTP user name. Leave empty to disable HLS authentication.">config.plugins.transcodingsettings.hls.user</item>
+						<item text="HLS password" description="Password used with the HLS user name.">config.plugins.transcodingsettings.hls.password</item>
+					</if>
+					<if conditional="self.rtspEnabled()">
+						<item text="RTSP listening port" description="TCP/UDP port used by the RTSP server. It must differ from ports 8001, 8002 and the HLS port.">config.plugins.transcodingsettings.rtsp.port</item>
+						<item text="RTSP path" description="RTSP mount path without leading or trailing slash.">config.plugins.transcodingsettings.rtsp.path</item>
+						<item text="RTSP user" description="Optional RTSP user name. Leave empty to disable RTSP authentication.">config.plugins.transcodingsettings.rtsp.user</item>
+						<item text="RTSP password" description="Password used with the RTSP user name.">config.plugins.transcodingsettings.rtsp.password</item>
+					</if>
+
+					<if conditional="self.liveEndpointEnabled() and self.liveSupportsEncoderShape()">
+						<item text="Live GOP length" description="GOP duration in milliseconds. Zero lets the live server calculate it from the P-frame setting. Incorrect GOP settings can delay HLS segment creation or cause client startup failures.">config.plugins.transcodingsettings.live.gopLength</item>
+						<item text="Live P-frames" description="Number of P-frames used when GOP length is automatic. Larger values improve compression but increase recovery latency.">config.plugins.transcodingsettings.live.pFrames</item>
+						<item text="Live B-frames" description="Number of B-frames used by the Dreamsource encoder pipeline. B-frames can increase latency and require a compatible profile.">config.plugins.transcodingsettings.live.bFrames</item>
+						<item text="Open GOP" description="Allow frames to reference pictures from the previous GOP. This can improve compression but may reduce seeking and HLS segment independence.">config.plugins.transcodingsettings.live.openGop</item>
+						<item text="New GOP on scene change" description="Start a new GOP on large scene changes. This may improve quality but produces less predictable segment boundaries.">config.plugins.transcodingsettings.live.gopOnSceneChange</item>
+						<item text="Live encoder slices" description="Number of H.264 slices. Multiple slices may improve error resilience but add overhead and are not useful for most home networks.">config.plugins.transcodingsettings.live.slices</item>
+						<item text="Live codec level" description="H.264 level used by the Dreamsource pipeline. Choose a level compatible with the selected resolution and frame rate.">config.plugins.transcodingsettings.live.level</item>
+						<item text="Live codec profile" description="H.264 profile used by the Dreamsource pipeline. Main is the safest choice; High may not play on older clients.">config.plugins.transcodingsettings.live.profile</item>
+					</if>
+					<if conditional="self.liveEndpointEnabled() and not self.liveSupportsEncoderShape()">
+						<item text="The generic port-8001 pipeline does not provide separate GOP, profile, level or audio-bitrate controls" description="For HiSilicon, WTE, Vu+ and GigaBlue port-8001 streaming, enigma2-live555 republishes the transport stream produced by Enigma2. Only bitrate, resolution, frame rate, video codec, aspect ratio and scan mode are passed to that pipeline." />
+					</if>
+				</if>
+			</if>
+		</if>
+	</setup>
+</setupxml>
