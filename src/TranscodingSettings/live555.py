@@ -312,6 +312,16 @@ class LiveStreamController:
 				return mode, service_ref
 		return int(INPUT_MODE_LIVE), self._current_service_ref()
 
+	def _service_input_mode(self, service_ref):
+		if eServiceReference is not None:
+			try:
+				ref = service_ref if isinstance(service_ref, eServiceReference) else eServiceReference(service_ref)
+				if ref and ref.valid() and ref.type == eServiceReference.idServiceHDMIIn:
+					return int(INPUT_MODE_HDMI_IN)
+			except Exception:
+				pass
+		return int(INPUT_MODE_BACKGROUND)
+
 	def _selected_index(self):
 		value = self.uriEncoder if self.uriEncoder is not None else config.plugins.transcodingsettings.encoder.value
 		return encoder_preference_index(value)
@@ -470,6 +480,12 @@ class LiveStreamController:
 			config.plugins.transcodingsettings.hls.password.value,
 		)
 
+	def reset_uri_overrides(self):
+		"""Restore the source and encoder selected in the plugin configuration."""
+		self.uriServiceRef = ""
+		self.uriEncoder = None
+		self.stop_encoder_service()
+
 	def disable(self):
 		"""Disable both endpoints before the daemon is stopped."""
 		if self.server is not None:
@@ -498,7 +514,12 @@ class LiveStreamController:
 			self.stop_encoder_service()
 
 	def _source_state_changed(self, state):
-		if state and self.uriServiceRef and self._dream_backend():
+		if (
+			state
+			and self.uriServiceRef
+			and self._dream_backend()
+			and self._service_input_mode(self.uriServiceRef) == int(INPUT_MODE_BACKGROUND)
+		):
 			self._start_encoder_service(self.uriServiceRef)
 		elif not state:
 			self.stop_encoder_service()
@@ -560,6 +581,8 @@ class LiveStreamController:
 			ref = self._get_ref(eServiceReference(service_ref)) if eServiceReference else None
 			if ref and ref.valid():
 				self.uriServiceRef = ref.toString()
+		else:
+			self.uriServiceRef = ""
 
 		overrides = {}
 		bitrate = self._integer_parameter(params, "video_bitrate", "bitrate")
@@ -593,9 +616,10 @@ class LiveStreamController:
 
 		self._apply_encoder_values(index, overrides)
 		if self.uriServiceRef:
-			self._call("setInputMode", int(INPUT_MODE_BACKGROUND))
+			input_mode = self._service_input_mode(self.uriServiceRef)
+			self._call("setInputMode", input_mode)
 			self._call("setServiceRef", self.uriServiceRef)
-			if self._dream_backend():
+			if self._dream_backend() and input_mode == int(INPUT_MODE_BACKGROUND):
 				self._start_encoder_service(self.uriServiceRef)
 
 	def _dream_backend(self):
@@ -686,6 +710,7 @@ def apply_live_streaming_state(session=None):
 	controller = get_live_stream_controller(session, create=True)
 	if controller is None:
 		return ["Unable to initialize the HLS/RTSP controller."]
+	controller.reset_uri_overrides()
 	controller.apply()
 	return errors
 

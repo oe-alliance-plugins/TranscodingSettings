@@ -1,5 +1,5 @@
 <setupxml>
-	<setup key="transcodingsettings" title="Transcoding Settings">
+	<setup key="transcodingsettings" title="Transcoding Settings" showOpenWebif="1">
 		<item text="Enable transcoding" description="Enable the receiver's hardware encoder and allow OpenWebif to create reduced-bandwidth streams. Disable this option when the encoder must not be used.">config.plugins.transcodingsettings.enabled</item>
 		<if conditional="config.plugins.transcodingsettings.enabled.value">
 			<item text="Transcoding port" description="Port 8001 uses the Enigma2 stream server and supports the optional HLS and RTSP service. Port 8002 uses the BCM transcoding proxy and never provides HLS or RTSP.">config.plugins.transcodingsettings.port</item>
